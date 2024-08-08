@@ -32,26 +32,27 @@
   "type": "module",
   "main": "dist/index.cjs",
   "module": "dist/index.mjs",
-  "types": "index.d.ts",
-  "typesVersions": {
-    ">=5.0": {
-      "*": [
-        "dist/types/*"
-      ]
-    }
-  },
+  "types": "dist/index.d.mts",
   "exports": {
     ".": {
-      "types": "./dist/types/index.d.ts",
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.cjs",
-      "default": "./dist/index.mjs"
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      },
+      "import": {
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
+      }
     },
     "./locale/*": {
-      "types": "./dist/types/locale/*.d.ts",
-      "import": "./dist/locale/*.mjs",
-      "require": "./dist/locale/*.cjs",
-      "default": "./dist/locale/*.mjs"
+      "require": {
+        "types": "./dist/locale/*.d.cts",
+        "default": "./dist/locale/*.cjs"
+      },
+      "import": {
+        "types": "./dist/locale/*.d.mts",
+        "default": "./dist/locale/*.mjs"
+      }
     },
     "./package.json": "./package.json"
   },
@@ -65,7 +66,7 @@
     "build:code": "packem build --tsconfig=tsconfig.build.json || exit 0",
     "build:code:tsup": "tsup-node",
     "build:types": "tsc --project tsconfig.build.json",
-    "build": "run-s build:clean build:code build:types",
+    "build": "run-s build:clean build:code",
     "build:tsup": "run-s build:clean build:code:tsup build:types",
     "generate": "run-s generate:locales generate:api-docs",
     "generate:api-docs": "tsx ./scripts/apidocs.ts",
@@ -123,10 +124,11 @@
     "prettier": "3.3.2",
     "prettier-plugin-organize-imports": "4.0.0",
     "rimraf": "5.0.8",
+    "@swc/core": "^1.7.6",
     "sanitize-html": "2.13.0",
     "semver": "7.6.2",
     "esbuild": "^0.23.0",
-    "@visulima/packem": "1.0.0-alpha.67",
+    "@visulima/packem": "1.0.0-alpha.68",
     "ts-morph": "23.0.0",
     "tsup": "8.1.0",
     "tsx": "4.16.2",
